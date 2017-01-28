@@ -30,6 +30,22 @@
      ]
  };
 
+// A Third Example Album
+var albumThree = {
+    title: 'Food',
+    artist: 'James Smith',
+    label: 'RB',
+    year: '1985',
+    albumArtUrl: 'assets/images/album_covers/18.png',
+    songs: [
+        { title: 'Pizza', duration: '3:05' },
+        { title: 'Tacos', duration: '2:55' },
+        { title: 'Cheeseburger', duration: '4:35' },
+        { title: 'Lobster', duration: '2:01' },
+        { title: 'Lasagna', duration: '5:05' }
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template = 
         '<tr class="album-view-song-item">'
@@ -42,13 +58,13 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
+var albumTitle = document.getElementsByClassName("album-view-title")[0];
+var albumArtist = document.getElementsByClassName("album-view-artist")[0];
+var albumReleaseInfo = document.getElementsByClassName("album-view-release-info")[0];
+var albumImage = document.getElementsByClassName("album-cover-art")[0];
+var albumSongList = document.getElementsByClassName("album-view-song-list")[0];
+
 var setCurrentAlbum = function(album) {
-    var albumTitle = document.getElementsByClassName("album-view-title")[0];
-    var albumArtist = document.getElementsByClassName("album-view-artist")[0];
-    var albumReleaseInfo = document.getElementsByClassName("album-view-release-info")[0];
-    var albumImage = document.getElementsByClassName("album-cover-art")[0];
-    var albumSongList = document.getElementsByClassName("album-view-song-list")[0];
-    
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + " " + album.label;
@@ -62,4 +78,14 @@ var setCurrentAlbum = function(album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    
+    var albums = [albumPicasso, albumMarconi, albumThree];
+    var index = 1;
+    albumImage.addEventListener("click", function(event) {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+            index = 0;
+        }
+    });
 };
