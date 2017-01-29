@@ -66,7 +66,13 @@ var findParentByClassName = function(element, targetClass) {
         while (currentParent.className != targetClass && currentParent.className !== null) {
             currentParent = currentParent.parentElement;
         }
-        return currentParent;
+        if (currentParent == "" || currentParent === null) {
+            return console.log("No parent found");
+        } else if (currentParent.className != targetClass) {
+            return console.log("No parent found with that class name");       
+        } else {
+            return currentParent;
+        }
     }
 };
 
@@ -80,7 +86,7 @@ var getSongItem = function(element) {
         case "album-view-song-item":
             return element.querySelector(".song-item-number");
         case "song-item-title:":
-        case "song-item-druation":
+        case "song-item-duration":
             return findParentByClassName(element, "album-view-song-item").querySelector(".song-item-number");
         case "song-item-number":
             return element;
